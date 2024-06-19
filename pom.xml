@@ -472,7 +472,8 @@
           <configuration>
             <bnd><![CDATA[
               # Export packages not containing the substring 'internal'
-              -exportcontents: ${removeall;${packages};${packages;NAMED;*internal*}}
+              -exportcontents: *.internal.*;x-internal:=true, \
+                *
               # Ensure only packages of exactly the same version are imported 
               # and mark javax.inject imports as optional, just like the Maven dependencies to it.
               mavenResolverVersion=${versionmask;===;${version_cleanup;${project.version}}}
