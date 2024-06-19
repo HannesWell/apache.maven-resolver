@@ -116,6 +116,17 @@
       <plugin>
         <groupId>biz.aQute.bnd</groupId>
         <artifactId>bnd-maven-plugin</artifactId>
+        <configuration>
+          <bnd><![CDATA[
+            # Mark optional Maven dependencies as optional
+            Import-Package: \
+              org.slf4j.spi;version="[1.7,3)", \
+              javax.inject;resolution:=optional,\
+              com.google.inject*;resolution:=optional, \
+              org.eclipse.sisu*;resolution:=optional, \
+              *
+          ]]></bnd>
+        </configuration>
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
