@@ -473,10 +473,15 @@
             <bnd><![CDATA[
               # Export packages not containing the substring 'internal'
               -exportcontents: ${removeall;${packages};${packages;NAMED;*internal*}}
-              # Mark javax.inject imports as optional, just like the Maven dependencies to it.
+              # Ensure only packages of exactly the same version are imported 
+              # and mark javax.inject imports as optional, just like the Maven dependencies to it.
+              mavenResolverVersion=${versionmask;===;${version_cleanup;${project.version}}}
               Import-Package: \
+                org.eclipse.aether*;version="${range;[===,===];${mavenResolverVersion}}", \
                 javax.inject*;resolution:=optional, \
                 *
+              # No re-import of exported packages
+              -noimport:=true
               # Reproducible build
               -noextraheaders: true
             ]]></bnd>
