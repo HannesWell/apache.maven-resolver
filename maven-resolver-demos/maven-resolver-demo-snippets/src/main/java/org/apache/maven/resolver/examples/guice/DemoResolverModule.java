@@ -72,20 +72,20 @@ class DemoResolverModule extends AbstractModule {
         bind(VersionResolver.class).to(DefaultVersionResolver.class).in(Singleton.class);
         bind(VersionRangeResolver.class).to(DefaultVersionRangeResolver.class).in(Singleton.class);
         bind(MetadataGeneratorFactory.class)
-                .annotatedWith(Names.named("snapshot"))
+                .annotatedWith(Names.named(SnapshotMetadataGeneratorFactory.NAME))
                 .to(SnapshotMetadataGeneratorFactory.class)
                 .in(Singleton.class);
 
         bind(MetadataGeneratorFactory.class)
-                .annotatedWith(Names.named("versions"))
+                .annotatedWith(Names.named(VersionsMetadataGeneratorFactory.NAME))
                 .to(VersionsMetadataGeneratorFactory.class)
                 .in(Singleton.class);
 
         bind(RepositoryConnectorFactory.class)
-                .annotatedWith(Names.named("basic"))
+                .annotatedWith(Names.named(BasicRepositoryConnectorFactory.NAME))
                 .to(BasicRepositoryConnectorFactory.class);
-        bind(TransporterFactory.class).annotatedWith(Names.named("file")).to(FileTransporterFactory.class);
-        bind(TransporterFactory.class).annotatedWith(Names.named("http")).to(HttpTransporterFactory.class);
+        bind(TransporterFactory.class).annotatedWith( Names.named(FileTransporterFactory.NAME)).to(FileTransporterFactory.class);
+        bind(TransporterFactory.class).annotatedWith(Names.named(HttpTransporterFactory.NAME)).to(HttpTransporterFactory.class);
     }
 
     /**
