@@ -41,6 +41,7 @@
     <!-- the child modules are just source code demos and not to be shared as artifacts -->
     <maven.deploy.skip>true</maven.deploy.skip>
     <bnd.skip>true</bnd.skip>
+    <bnd.baseline.skip>true</bnd.baseline.skip>
   </properties>
   <build>
     <pluginManagement>
@@ -55,5 +56,21 @@
         </plugin>
       </plugins>
     </pluginManagement>
+    <plugins>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>exec-maven-plugin</artifactId>
+        <version>3.3.0</version>
+        <executions>
+          <execution>
+            <id>compare-manifest-with-baseline</id>
+            <goals>
+              <goal>exec</goal>
+            </goals>
+            <phase>none</phase>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
   </build>
 </project>
