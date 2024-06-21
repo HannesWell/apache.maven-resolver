@@ -98,6 +98,7 @@
     <minimalJavaBuildVersion>[1.8.0-362,)</minimalJavaBuildVersion>
     <project.build.outputTimestamp>2024-04-26T10:43:34Z</project.build.outputTimestamp>
     <bnd.instructions.additions />
+    <baseline.version>1.9.20</baseline.version>
   </properties>
 
   <dependencyManagement>
@@ -517,6 +518,50 @@
             <goals>
               <goal>bnd-process</goal>
             </goals>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>biz.aQute.bnd</groupId>
+        <artifactId>bnd-baseline-maven-plugin</artifactId>
+        <version>6.4.0</version>
+        <configuration>
+          <fullReport>false</fullReport>
+        </configuration>
+        <executions>
+          <execution>
+            <id>baseline</id>
+            <goals>
+              <!--goal>baseline</goal-->
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>exec-maven-plugin</artifactId>
+        <version>3.3.0</version>
+        <executions>
+          <execution>
+            <id>compare-manifest-with-baseline</id>
+            <goals>
+              <goal>exec</goal>
+            </goals>
+            <phase>verify</phase>
+            <configuration>
+              <executable>java</executable>
+              <arguments>
+                <arg>-jar</arg>
+                <arg>C:\dev\workspaces\iils.dc43.v4\osgi.utils/target/osgi.utils-0.0.1-SNAPSHOT-jar-with-dependencies.jar</arg>
+                <arg>-bundle</arg>
+                <arg>${project.build.directory}/${project.artifactId}-${project.version}.jar</arg>
+                <arg>-baseline</arg>
+                <arg>https://repo1.maven.org/maven2/org/apache/maven/resolver/${project.artifactId}/${baseline.version}/${project.artifactId}-${baseline.version}.jar</arg>
+                <arg>-ignored.headers</arg>
+                <arg>Created-By,Implementation-Version,Bundle-SCM</arg>
+              </arguments>
+              <inheritIo>true</inheritIo>
+            </configuration>
           </execution>
         </executions>
       </plugin>
